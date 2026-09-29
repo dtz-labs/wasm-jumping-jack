@@ -40,7 +40,10 @@ jobs:
           path: build/JumpingJack-macOS.zip
 
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    # GitHub Pages for private repos needs a paid plan; deploy once the repo is public.
+    if: >-
+      github.event_name != 'pull_request' && github.ref == 'refs/heads/main' &&
+      !github.event.repository.private
     needs: web
     runs-on: ubuntu-24.04
     permissions:

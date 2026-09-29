@@ -15,7 +15,8 @@ One game core in freestanding C (``src/game.c``) is compiled to:
 - a **native macOS app** (Cocoa + AudioToolbox, ``mac/main.m``).
 
 Every push to ``main`` runs the tests, builds the WASM version and deploys it to
-GitHub Pages. The macOS ``.app`` is attached to each workflow run as the
+GitHub Pages. The deploy step only runs while the repository is public, because
+Pages for private repositories needs a paid GitHub plan. The macOS ``.app`` is attached to each workflow run as the
 ``JumpingJack-macOS`` artifact.
 
 Requirements

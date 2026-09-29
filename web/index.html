@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>Jumping Jack</title>
+<style>
+  :root { --bg: #000; --fg: #d7d7d7; --btn: #0000d7; --btn-on: #ff00ff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+    font-family: ui-monospace, Menlo, monospace; overflow: hidden;
+    touch-action: none; user-select: none; -webkit-user-select: none;
+    -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+             env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges;
+    width: min(100vw, calc((100vh - 60px) * 4 / 3)); aspect-ratio: 4 / 3; }
+  #hint { font-size: 12px; opacity: .6; margin-top: 6px; text-align: center; }
+
+  /* On-screen controls, shown only on touch devices. */
+  #touch { display: none; }
+  #touch button { font: inherit; font-weight: bold; color: #fff; border: 0; border-radius: 14px;
+    background: var(--btn); touch-action: none; opacity: .85; }
+  #touch button.on { background: var(--btn-on); }
+
+  @media (pointer: coarse) {
+    #hint { display: none; }
+    #touch { display: flex; width: 100%; justify-content: space-between; align-items: center;
+      padding: 12px 16px; gap: 12px; }
+    #touch .dpad { display: flex; gap: 12px; }
+    #touch button { width: 84px; height: 84px; font-size: 32px; }
+    #touch button.jump { width: 120px; font-size: 22px; }
+    canvas { width: min(100vw, calc((100vh - 130px) * 4 / 3)); }
+  }
+  /* Phone held sideways: game in the middle, controls on both sides. */
+  @media (pointer: coarse) and (orientation: landscape) {
+    body { flex-direction: row; }
+    canvas { width: min(calc(100vw - 260px), calc(100vh * 4 / 3)); }
+    #touch { position: fixed; inset: 0; padding: 0 12px; pointer-events: none; }
+    #touch .dpad { flex-direction: column; }
+    #touch button { pointer-events: auto; width: 100px; height: 100px; }
+    #touch button.jump { width: 100px; height: 140px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="screen" width="320" height="240"></canvas>
+<div id="touch">
+  <div class="dpad">
+    <button data-key="1" aria-label="Left">&#9664;</button>
+    <button data-key="2" aria-label="Right">&#9654;</button>
+  </div>
+  <button class="jump" data-key="4" aria-label="Jump">JUMP</button>
+</div>
+<div id="hint">Z/X or &larr;/&rarr; move &middot; Space/&uarr; jump &middot; H/Esc pause &middot; M mute</div>
+<script src="main.js"></script>
+</body>
+</html>
